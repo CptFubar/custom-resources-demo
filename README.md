@@ -9,4 +9,6 @@ It shows how easy it is to nest all data and save it locally with the use of God
 
 The save file is located in the `user://saves` folder and the save file name used is `save.tres`.
 
+![screenshot of the project](./screen.png)
+
 [Licensed under MIT](./LICENSE)
