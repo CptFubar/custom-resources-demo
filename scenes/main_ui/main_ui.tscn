@@ -1,0 +1,179 @@
+[gd_scene load_steps=5 format=3 uid="uid://1hvb5tj2tieq"]
+
+[ext_resource type="Script" path="res://scenes/main_ui/main_ui.gd" id="1_r03f4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awsj2"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.145098, 0.368627, 0.568627, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="SystemFont" id="SystemFont_p533w"]
+font_names = PackedStringArray("Monospace")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlg1d"]
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
+border_width_left = 10
+border_color = Color(0.152941, 0.152941, 0.152941, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_r03f4")
+metadata/_edit_vertical_guides_ = [72.0]
+
+[node name="DataBackground" type="PanelContainer" parent="."]
+offset_left = 120.0
+offset_top = 48.0
+offset_right = 314.0
+offset_bottom = 326.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_awsj2")
+
+[node name="ExampleData" type="VBoxContainer" parent="DataBackground"]
+layout_mode = 2
+
+[node name="LabelName" type="Label" parent="DataBackground/ExampleData"]
+layout_mode = 2
+text = "Name of the character"
+
+[node name="Name" type="LineEdit" parent="DataBackground/ExampleData"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Name"
+
+[node name="LabelClass" type="Label" parent="DataBackground/ExampleData"]
+layout_mode = 2
+text = "Class"
+
+[node name="ClassButton" type="OptionButton" parent="DataBackground/ExampleData"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="DataBackground/ExampleData"]
+layout_mode = 2
+
+[node name="LabelStats" type="Label" parent="DataBackground/ExampleData"]
+layout_mode = 2
+text = "Stats"
+
+[node name="Strentgh" type="LineEdit" parent="DataBackground/ExampleData"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Strength"
+
+[node name="Magic" type="LineEdit" parent="DataBackground/ExampleData"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Magic"
+
+[node name="Dexterity" type="LineEdit" parent="DataBackground/ExampleData"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Dexterity"
+
+[node name="ActionButtons" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 100)
+offset_left = 344.0
+offset_top = 72.0
+offset_right = 544.0
+offset_bottom = 208.0
+size_flags_horizontal = 2
+size_flags_vertical = 6
+
+[node name="Save" type="Button" parent="ActionButtons"]
+layout_mode = 2
+text = "Save"
+
+[node name="Load" type="Button" parent="ActionButtons"]
+layout_mode = 2
+text = "Load"
+
+[node name="Reset" type="Button" parent="ActionButtons"]
+layout_mode = 2
+text = "Reset
+"
+
+[node name="OpenDir" type="Button" parent="ActionButtons"]
+layout_mode = 2
+text = "Open Save Directory"
+
+[node name="MetaData" type="VBoxContainer" parent="."]
+offset_left = 344.0
+offset_top = 232.0
+offset_right = 624.0
+offset_bottom = 326.0
+
+[node name="MetaDataTitle" type="Label" parent="MetaData"]
+layout_mode = 2
+text = "Meta Data of the Save File"
+
+[node name="HSeparator" type="HSeparator" parent="MetaData"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="MetaData"]
+layout_mode = 2
+columns = 2
+
+[node name="LabelTimeStamp" type="Label" parent="MetaData/Grid"]
+layout_mode = 2
+text = "Time Stamp :"
+
+[node name="TimeStamp" type="Label" parent="MetaData/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "###"
+
+[node name="LabelVersion" type="Label" parent="MetaData/Grid"]
+layout_mode = 2
+text = "Game Version :"
+
+[node name="Version" type="Label" parent="MetaData/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "###
+"
+
+[node name="OutputFields" type="VBoxContainer" parent="."]
+offset_left = 72.0
+offset_top = 368.0
+offset_right = 1034.0
+offset_bottom = 603.0
+
+[node name="Title" type="Label" parent="OutputFields"]
+layout_mode = 2
+text = "Action Log : "
+
+[node name="ActionLog" type="RichTextLabel" parent="OutputFields"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 205)
+layout_mode = 2
+focus_mode = 2
+theme_override_fonts/normal_font = SubResource("SystemFont_p533w")
+theme_override_styles/normal = SubResource("StyleBoxFlat_mlg1d")
+text = "some example text..."
+scroll_following = true
+selection_enabled = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 640.0
+offset_top = 56.0
+offset_right = 1032.0
+offset_bottom = 296.0
+text = "How does this works ?
+Fill out the form with example data and save it. You can reset the fields and load the saved data. 
+
+In this example project there are 3 custom resources used : a Player class, a Stats class as a component of Player and a SaveFile class that stores the Player data and any eventual game state."
+
+[connection signal="pressed" from="ActionButtons/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="ActionButtons/Load" to="." method="_on_load_button_pressed"]
+[connection signal="pressed" from="ActionButtons/Reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="ActionButtons/OpenDir" to="." method="_on_open_dir_pressed"]

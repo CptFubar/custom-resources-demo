@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dsajg63lo4txf"]
+
+[ext_resource type="Script" path="res://resource_models/player.gd" id="1_h132p"]
+[ext_resource type="Script" path="res://resource_models/stats.gd" id="2_htjo4"]
+
+[sub_resource type="Resource" id="Resource_rvxpp"]
+script = ExtResource("2_htjo4")
+strength = 1
+magic = 2
+dexterity = 3
+
+[resource]
+script = ExtResource("1_h132p")
+player_name = "test name"
+class_type = 0
+stats = SubResource("Resource_rvxpp")
