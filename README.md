@@ -8,3 +8,5 @@ and the SaveFile class that serves as a resource to store the Player data and ev
 It shows how easy it is to nest all data and save it locally with the use of Godot's internal [ResourceSaver](https://docs.godotengine.org/en/latest/classes/class_resourcesaver.html) and [ResourceLoader](https://docs.godotengine.org/en/latest/classes/class_resourceloader.html) objects.
 
 The save file is located in the `user://saves` folder and the save file name used is `save.tres`.
+
+[Licensed under MIT](./LICENSE)
