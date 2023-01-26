@@ -48,6 +48,7 @@ text = "Name of the character"
 [node name="Name" type="LineEdit" parent="DataBackground/ExampleData"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_previous = NodePath("../../../ActionButtons/OpenDir")
 placeholder_text = "Name"
 
 [node name="LabelClass" type="Label" parent="DataBackground/ExampleData"]
@@ -65,20 +66,27 @@ layout_mode = 2
 layout_mode = 2
 text = "Stats"
 
-[node name="Strentgh" type="LineEdit" parent="DataBackground/ExampleData"]
+[node name="Strentgh" type="SpinBox" parent="DataBackground/ExampleData"]
 unique_name_in_owner = true
 layout_mode = 2
-placeholder_text = "Strength"
+rounded = true
+suffix = "Strength"
+select_all_on_focus = true
 
-[node name="Magic" type="LineEdit" parent="DataBackground/ExampleData"]
+[node name="Magic" type="SpinBox" parent="DataBackground/ExampleData"]
 unique_name_in_owner = true
 layout_mode = 2
-placeholder_text = "Magic"
+rounded = true
+suffix = "Magic"
+select_all_on_focus = true
 
-[node name="Dexterity" type="LineEdit" parent="DataBackground/ExampleData"]
+[node name="Dexterity" type="SpinBox" parent="DataBackground/ExampleData"]
 unique_name_in_owner = true
 layout_mode = 2
-placeholder_text = "Dexterity"
+focus_next = NodePath("../../../ActionButtons/Save")
+rounded = true
+suffix = "Dexterity"
+select_all_on_focus = true
 
 [node name="ActionButtons" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(200, 100)
@@ -90,7 +98,9 @@ size_flags_horizontal = 2
 size_flags_vertical = 6
 
 [node name="Save" type="Button" parent="ActionButtons"]
+unique_name_in_owner = true
 layout_mode = 2
+focus_previous = NodePath("../../DataBackground/ExampleData/Dexterity")
 text = "Save"
 
 [node name="Load" type="Button" parent="ActionButtons"]
@@ -104,6 +114,7 @@ text = "Reset
 
 [node name="OpenDir" type="Button" parent="ActionButtons"]
 layout_mode = 2
+focus_next = NodePath("../../DataBackground/ExampleData/Name")
 text = "Open Save Directory"
 
 [node name="MetaData" type="VBoxContainer" parent="."]
@@ -173,6 +184,7 @@ Fill out the form with example data and save it. You can reset the fields and lo
 
 In this example project there are 3 custom resources used : a Player class, a Stats class as a component of Player and a SaveFile class that stores the Player data and any eventual game state."
 
+[connection signal="text_submitted" from="DataBackground/ExampleData/Name" to="." method="_on_name_text_submitted"]
 [connection signal="pressed" from="ActionButtons/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="ActionButtons/Load" to="." method="_on_load_button_pressed"]
 [connection signal="pressed" from="ActionButtons/Reset" to="." method="_on_reset_pressed"]

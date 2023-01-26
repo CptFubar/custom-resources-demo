@@ -10,9 +10,9 @@ var player := Player.new()
 
 @onready var character_name: LineEdit = $"%Name"
 @onready var class_button: OptionButton = $"%ClassButton"
-@onready var strength_input_field: LineEdit = $"%Strentgh"
-@onready var magic_input_field: LineEdit = $"%Magic"
-@onready var dexterity_input_field: LineEdit = $"%Dexterity"
+@onready var strength_input_field: SpinBox = $"%Strentgh"
+@onready var magic_input_field: SpinBox = $"%Magic"
+@onready var dexterity_input_field: SpinBox = $"%Dexterity"
 @onready var action_log: RichTextLabel = $"%ActionLog"
 @onready var time_stamp: Label = $"%TimeStamp"
 @onready var version: Label = $"%Version"
@@ -26,6 +26,7 @@ func _ready() -> void:
 	#clearing the meta data fields on start
 	time_stamp.text = ""
 	version.text = ""
+	character_name.grab_focus()
 
 
 func generate_save_dir(path:String) -> void:
@@ -52,9 +53,9 @@ func _on_save_pressed() -> void:
 
 	player.player_name = character_name.text
 	player.class_type = class_button.selected
-	stats.strength = int(strength_input_field.text) if strength_input_field.text != "" else 0
-	stats.magic = int(magic_input_field.text) if magic_input_field.text != "" else 0
-	stats.dexterity = int(dexterity_input_field.text) if dexterity_input_field.text != "" else 0
+	stats.strength = strength_input_field.value
+	stats.magic = magic_input_field.value
+	stats.dexterity = dexterity_input_field.value
 	player.stats = stats
 
 	var new_save = SaveFile.new(player)
@@ -79,9 +80,9 @@ func _on_load_button_pressed() -> void:
 
 		character_name.text = player.player_name
 		class_button.select(player.class_type)
-		strength_input_field.text = str(stats.strength)
-		magic_input_field.text = str(stats.magic)
-		dexterity_input_field.text = str(stats.dexterity)
+		strength_input_field.value = stats.strength
+		magic_input_field.value = stats.magic
+		dexterity_input_field.value = stats.dexterity
 		#Meta Data
 		time_stamp.text = Time.get_datetime_string_from_unix_time(int(loaded_values.timestamp),true)
 		version.text = loaded_values.version
@@ -90,9 +91,9 @@ func _on_load_button_pressed() -> void:
 func _on_reset_pressed() -> void:
 	character_name.text = ""
 	class_button.select(Player.CLASS.FIGHTER)
-	strength_input_field.clear()
-	magic_input_field.clear()
-	dexterity_input_field.clear()
+	strength_input_field.value = 0
+	magic_input_field.value = 0
+	dexterity_input_field.value = 0
 	time_stamp.text = ""
 	version.text = ""
 	action_log.add_text("%s Cleared all fields.\n" % get_line())
@@ -102,3 +103,10 @@ func _on_open_dir_pressed() -> void:
 	var err = OS.shell_open(ProjectSettings.globalize_path(save_path))
 	if err != OK:
 		action_log.append_text("%s Couldn't open save file folder, probably does not exist yet, try and save at least once.\n" % get_line())
+
+
+func _on_name_text_submitted(_new_text: String) -> void:
+	var input_event = InputEventAction.new()
+	input_event.action = "ui_focus_next"
+	input_event.pressed = true
+	Input.parse_input_event(input_event)
